@@ -2,7 +2,6 @@ import * as types from "./actionTypes";
 
 export function test(){
     return(dispatch, getState) => {
-        console.log(getState());
         dispatch(testDispatch);
     }
 }
