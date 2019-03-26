@@ -8,10 +8,13 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, PermissionsAndroid, NativeEventEmitter, NativeModules, Alert} from 'react-native';
+import BleManager from 'react-native-ble-manager';
 import {ActionCreators} from './actions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+
+const BleEmitter = new NativeEventEmitter(NativeModules.BleManager);
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -20,10 +23,95 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 class Root extends Component {
+  constructor(props){
+    super(props);
+    this.onStopScan = this.onStopScan.bind(this);
+    this.onDiscoverPeripheral = this.onDiscoverPeripheral.bind(this);
+    this.onConnectPeripheral = this.onConnectPeripheral.bind(this);
+    this.onDisconnectPeripheral = this.onDisconnectPeripheral.bind(this);
+    this.onReceivePacket = this.onReceivePacket.bind(this);
+    this.state = {};
+  }
+
+  checkBLEPermissions(){
+    if(Platform.OS === 'android'){
+      //request both bluetooth and coarse location permissions as necessary
+      BleManager.enableBluetooth().then(() => {
+        PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION).then((result) => {
+          
+          if(!result){
+            PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION).then((result)=> {
+              if(result === 'denied'){
+                Alert.alert('Must allow all permissions to use this app.');
+              }
+              else{
+                this.configureListeners();
+              }
+            })
+          }
+          else{
+            this.configureListeners();
+          }
+          
+        });
+        
+      })
+      .catch((error) => {
+        console.log(error);
+        Alert.alert('You need to give access to bluetooth to use this app.');
+      });
+    }
+    else{
+      this.configureListeners();
+    }
+  }
+
+  configureListeners(){
+    //start ble manager
+    BleManager.start({showAlert: true});
+    //configure ble listeners
+    this.handlerStop = BleEmitter.addListener('BleManagerStopScan', this.onStopScan );
+    this.handlerDiscover = BleEmitter.addListener('BleManagerDiscoverPeripheral', this.onDiscoverPeripheral );
+    this.handleConnect = BleEmitter.addListener('BleManagerConnectPeripheral', this.onConnectPeripheral );
+    this.handleDisconnect = BleEmitter.addListener('BleManagerDisconnectPeripheral', this.onDisconnectPeripheral );
+    this.handleReceivePacket = BleEmitter.addListener('BleManagerDidUpdateValueForCharacteristic', this.onReceivePacket )
+    //start scanning for device
+    this.startScan();
+  }
+
+  startScan(){
+    BleManager.scan([], 30).then(() => {
+      //Promise runs once scan is successfully started
+      console.log('scanning');
+    });
+  }
+
+  onStopScan(){
+    //todo
+  }
+
+  onDiscoverPeripheral(){
+    //todo
+  }
+
+  onConnectPeripheral(){
+    //todo
+  }
+
+  onDisconnectPeripheral(){
+    //todo
+  }
+
+  onReceivePacket(){
+    //todo
+  }
+
   componentDidMount(){
     //call test action
     console.log(this.props);
     this.props.test();
+
+    this.checkBLEPermissions();
   }
 
   render() {
