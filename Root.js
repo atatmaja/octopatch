@@ -9,7 +9,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import * as actions from './actions';
+import {ActionCreators} from './actions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -22,6 +22,7 @@ const instructions = Platform.select({
 class Root extends Component {
   componentDidMount(){
     //call test action
+    console.log(this.props);
     this.props.test();
   }
 
@@ -57,12 +58,12 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    appState: state.appState
+    accountInfo: state.accountInfo
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actions, dispatch);
+  return bindActionCreators(ActionCreators, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root);

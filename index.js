@@ -12,7 +12,7 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware, combineReduxers, compose} from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import {createLogger} from 'redux-logger';
-import reducer from './reducer'
+import reducer from './reducers'
 
 //log redux transactions if we're in development mode
 const loggerMiddleware = createLogger({predicate: (getState, action) => __DEV__})
@@ -28,11 +28,11 @@ function configureStore(initialState){
 }
 
 const initState = {
-    appState: {
-        accountInfo: {},
-        patients: [],
-        notifications: []
-    }
+    accountInfo: {},
+    //dictionary of patient objects, key = patient id, value = patient object associated with that id
+    patients: {},
+    //list of notification objects sorted in chronological order
+    notifications: []
 }
 
 const store = configureStore(initState);

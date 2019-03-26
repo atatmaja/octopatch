@@ -1,8 +1,7 @@
-import createReducer from './createReducer'
-import * as types from './actionTypes'
+import createReducer from '../createReducer'
+import * as types from '../actions/types'
 
-//not yet working
-export default appState = createReducer({}, {
+export const accountInfo = createReducer({}, {
     [types.TEST_ACTION](state, action){
         const newState = Object.assign({}, state);
         newState.log = action.msg;
