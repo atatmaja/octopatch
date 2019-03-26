@@ -13,6 +13,7 @@ import BleManager from 'react-native-ble-manager';
 import {ActionCreators} from './actions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import MainScreen from './mainScreens'
 
 const BleEmitter = new NativeEventEmitter(NativeModules.BleManager);
 
@@ -116,11 +117,7 @@ class Root extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
+      <MainScreen></MainScreen>
     );
   }
 }
