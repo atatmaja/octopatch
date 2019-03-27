@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
       backgroundColor: 'white'
     },
     header: {backgroundColor: '#33CEFF', flex: 0, height: 80, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row', borderBottomColor: "black", borderBottomWidth: StyleSheet.hairlineWidth},
-    tabSelectContainer: {flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'},
+    tabSelectContainer: {flex: 1, justifyContent: 'center', alignItems: 'center', borderBottomColor: "black", backgroundColor: 'white'},
     hairlineHor: {width: StyleSheet.hairlineWidth, backgroundColor: 'black'},
     mainHeaderText: {
         fontSize: 25,

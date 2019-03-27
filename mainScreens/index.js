@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: 'white'
     },
-    header: {flex: 0, height: 80, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row', borderBottomColor: "black", borderBottomWidth: StyleSheet.hairlineWidth},
+    header: {flex: 0, height: 80, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row', borderBottomWidth: StyleSheet.hairlineWidth},
     tabSelectContainer: {flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'},
     hairlineHor: {width: StyleSheet.hairlineWidth, backgroundColor: 'black'},
     mainHeaderText: {
