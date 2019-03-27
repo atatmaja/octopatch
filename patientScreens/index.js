@@ -16,7 +16,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Notifications from '../mainScreens/Notifications';
 import Biometrics from './Biometrics';
 import Information from './Information';
-
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
 class PatientScreen extends Component{
   constructor(props){
@@ -46,7 +46,25 @@ class PatientScreen extends Component{
             <View style={styles.header}>
                 <Text style={styles.mainHeaderText}>LESIE JOHNSONBERG</Text>
             </View>
-            <Text style={styles.mapText}>Patient Location</Text>
+            <Text style={styles.subtitle}>Patient Location</Text>
+            <View style={{flex: 1}}>
+                <MapView
+                    provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+                    style={{...StyleSheet.absoluteFillObject}}
+                    region={{
+                        latitude: 43.472923,
+                        longitude: -80.540087,
+                        latitudeDelta: 0.001,
+                        longitudeDelta: 0.001,
+                    }}
+                >
+                    <Marker
+                        coordinate={{latitude: 43.472923, longitude: -80.540087}}
+                        title={"Leslie Johnsonberg"}
+                        pinColor={'red'}
+                    />
+                </MapView>
+            </View>
             <View style={{flex: 0, flexDirection: 'row', height: 50, borderTopColor: 'black', borderBottomColor: 'black', borderTopWidth: StyleSheet.hairlineWidth, borderBottomWidth: StyleSheet.hairlineWidth}}>
                 <TouchableOpacity onPress={() => this.setState({currentScreen: 'Biometrics'})} style={styles.tabSelectContainer}>
                     <Icon size={30} name="heartbeat" color={this.state.currentScreen === "Biometrics" ? "black" : "#d3d3d3"}></Icon>
@@ -73,7 +91,7 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-start',
       backgroundColor: 'white'
     },
-    header: {backgroundColor: '#33CEFF', flex: 0, height: 80, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row', borderBottomColor: "black", borderBottomWidth: StyleSheet.hairlineWidth},
+    header: {backgroundColor: '#5b91c6', flex: 0, height: 80, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row', borderBottomColor: "black", borderBottomWidth: StyleSheet.hairlineWidth},
     tabSelectContainer: {flex: 1, justifyContent: 'center', alignItems: 'center', borderBottomColor: "black", backgroundColor: 'white'},
     hairlineHor: {width: StyleSheet.hairlineWidth, backgroundColor: 'black'},
     mainHeaderText: {
@@ -84,12 +102,11 @@ const styles = StyleSheet.create({
         color: 'white',
         padding: 30
     },
-    mapText: {
-        fontSize: 15,
-        margin: 10,
-        flex: 1,
-        color: 'black',
-        textAlign: 'left'
+    subtitle: {
+        marginLeft: 16,
+        fontWeight: 'bold',
+        fontSize: 18,
+        marginVertical: 8
     },
   });
 

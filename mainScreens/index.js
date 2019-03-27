@@ -84,15 +84,17 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: 'white'
     },
-    header: {flex: 0, height: 80, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row', borderBottomWidth: StyleSheet.hairlineWidth},
+    header: {backgroundColor: '#5b91c6', flex: 0, height: 80, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row', borderBottomWidth: StyleSheet.hairlineWidth},
     tabSelectContainer: {flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'},
     hairlineHor: {width: StyleSheet.hairlineWidth, backgroundColor: 'black'},
     mainHeaderText: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-        flex: 1
-    }
+        fontSize: 25,
+        textAlign: 'left',
+        margin: 5,
+        flex: 1,
+        color: 'white',
+        padding: 30
+    },
   });
 
   function mapStateToProps(state) {
