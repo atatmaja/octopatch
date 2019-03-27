@@ -46,7 +46,7 @@ class Notifications extends Component{
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => this.setState({todayExpanded: !this.state.todayExpanded})} style={styles.timePeriodContainer}>
+        <TouchableOpacity onPress={() => this.setState({todayExpanded: !this.state.todayExpanded})} style={styles.dropdownContainer}>
             <Text style={styles.timePeriodText}>Today </Text>
             <Icon style={styles.collapseIcon} size={24} name={this.state.todayExpanded ? "chevron-up" : "chevron-down"}></Icon>
         </TouchableOpacity>
@@ -57,7 +57,7 @@ class Notifications extends Component{
                 )
             })
         )}
-        <TouchableOpacity onPress={() => this.setState({weekExpanded: !this.state.weekExpanded})} style={styles.timePeriodContainer}>
+        <TouchableOpacity onPress={() => this.setState({weekExpanded: !this.state.weekExpanded})} style={styles.dropdownContainer}>
             <Text style={styles.timePeriodText}>This Week </Text>
             <Icon style={styles.collapseIcon} size={24} name={this.state.weekExpanded ? "chevron-up" : "chevron-down"}></Icon>
         </TouchableOpacity>
@@ -68,7 +68,7 @@ class Notifications extends Component{
                 )
             })
         )}
-        <TouchableOpacity onPress={() => this.setState({monthExpanded: !this.state.monthExpanded})} style={styles.timePeriodContainer}>
+        <TouchableOpacity onPress={() => this.setState({monthExpanded: !this.state.monthExpanded})} style={styles.dropdownContainer}>
             <Text style={styles.timePeriodText}>This Month </Text>
             <Icon style={styles.collapseIcon} size={24} name={this.state.monthExpanded ? "chevron-up" : "chevron-down"}></Icon>
         </TouchableOpacity>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center'
   },
-  timePeriodContainer: {
+  dropdownContainer: {
       width: Dimensions.get('window').width,
       flexDirection: 'row',
       alignItems: 'center',
