@@ -13,12 +13,16 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {ActionCreators} from '../actions';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Alerts from './Alerts';
+import Biometrics from './Biometrics';
+import Information from './Information';
+
 
 class PatientScreen extends Component{
   constructor(props){
     super(props);
     this.state = {
-        currentScreen: 'Home'
+        currentScreen: 'Alerts'
     }
   }
 
@@ -46,7 +50,7 @@ class PatientScreen extends Component{
             <View style={{flex:1}}>
                 {this.getActiveComponent()}
             </View>
-            <View style={{flex: 0, flexDirection: 'row', height: 40, borderTopColor: 'black', borderTopWidth: StyleSheet.hairlineWidth}}>
+            <View style={{flex: 0, flexDirection: 'row', height: 50, borderTopColor: 'black', borderBottomColor: 'black', borderTopWidth: StyleSheet.hairlineWidth}}>
                 <TouchableOpacity onPress={() => this.setState({currentScreen: 'Biometrics'})} style={styles.tabSelectContainer}>
                     <Icon size={30} name="heartbeat" color={this.state.currentScreen === "Biometrics" ? "black" : "#d3d3d3"}></Icon>
                 </TouchableOpacity>
@@ -60,16 +64,16 @@ class PatientScreen extends Component{
                 </TouchableOpacity>
             </View>
             <View style={styles.heartRateText}>
-            <Icon  size={20} name="heart" color="black">
-            <Text>0 BPM</Text></Icon>
+            <Icon  size={23} name="heart" color="black">
+            <Text>       0 BPM                     </Text><Icon size={20} name="circle" color="green"></Icon></Icon>
             </View>
             <View style={styles.breathingRateText}>
-            <Icon  size={20} name="bell" color="black">
-            <Text>27 breathes/min</Text></Icon>
+            <Icon  size={23} name="bell" color="black">
+            <Text>        27 breathes/min   </Text><Icon size={40} name="caret-up" color="red"></Icon></Icon>
             </View>
             <View style={styles.sweatText}>
-            <Icon  size={20} name="tint" color="black">
-            <Text>12.2 g/min-m2</Text> </Icon>
+            <Icon  size={24} name="tint" color="black">
+            <Text>        12.2 g/min-m2      </Text> <Icon size={20} name="circle" color="green"></Icon></Icon>
             </View>
         </View>
     );
@@ -87,7 +91,7 @@ const styles = StyleSheet.create({
     mainHeaderText: {
         fontSize: 25,
         textAlign: 'left',
-        margin: 10,
+        margin: 5,
         flex: 1,
         color: 'white',
         padding: 30
@@ -98,27 +102,26 @@ const styles = StyleSheet.create({
         flex: 1,
         color: 'black',
         textAlign: 'left'
-    },
+        },
     heartRateText: {
-        margin: 30,
-        flex: 1,
-        textAlign: 'center',
-        alignItems: 'center',
+        top: 10,
+        margin: 20,
+        flex: 0,
         padding:20
     },
     breathingRateText: {
+        top: 10,
         fontSize: 25,
-        margin: 10,
-        flex: 1,
-        textAlign: 'center',
-        alignItems: 'center'
+        margin: 20,
+        flex: 0,
+        padding:20
     },
     sweatText: {
+        top: 10,
         fontSize: 25,
-        margin: 10,
+        margin: 20,
         flex: 1,
-        textAlign: 'center',
-        alignItems: 'center'
+        padding:20
     }
 
   });

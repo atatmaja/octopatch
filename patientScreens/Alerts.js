@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {ActionCreators} from '../actions';
 import BleManager from 'react-native-ble-manager';
 
-class Notifications extends Component{
+class Alerts extends Component{
   constructor(props){
     super(props);
     this.state = {}
@@ -41,4 +41,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(ActionCreators, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
+export default connect(mapStateToProps, mapDispatchToProps)(Alerts);
