@@ -14,6 +14,7 @@ import {ActionCreators} from './actions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import MainScreen from './mainScreens'
+import PatientScreen from './patientScreens'
 
 const BleEmitter = new NativeEventEmitter(NativeModules.BleManager);
 
@@ -117,7 +118,7 @@ class Root extends Component {
 
   render() {
     return (
-      <MainScreen></MainScreen>
+      <PatientScreen></PatientScreen>
     );
   }
 }
