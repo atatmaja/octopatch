@@ -39,11 +39,22 @@ class MainScreen extends Component{
       }
   }
 
+  getTitleText(){
+    switch(this.state.currentScreen){
+        case "Home":
+          return "OCTOPATCH CONNECT"
+        case "Notifications":
+          return "NOTIFICATIONS"
+        case "Settings":
+          return "SETTINGS"
+    }
+  }
+
   render() {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.mainHeaderText}>OCTOPATCH CONNECT</Text>
+                <Text style={styles.mainHeaderText}>{this.getTitleText()}</Text>
             </View>
             <View style={{flex:1}}>
                 {this.getActiveComponent()}
