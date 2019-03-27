@@ -45,8 +45,10 @@ class MainScreen extends Component{
             <View style={styles.header}>
                 <Text style={styles.mainHeaderText}>OCTOPATCH CONNECT</Text>
             </View>
-            {this.getActiveComponent()}
-            <View style={{flexDirection: 'row', height: 60, borderTopColor: 'black', borderTopWidth: StyleSheet.hairlineWidth}}>
+            <View style={{flex:1}}>
+                {this.getActiveComponent()}
+            </View>
+            <View style={{flex: 0, flexDirection: 'row', height: 60, borderTopColor: 'black', borderTopWidth: StyleSheet.hairlineWidth}}>
                 <TouchableOpacity onPress={() => this.setState({currentScreen: 'Home'})} style={styles.tabSelectContainer}>
                     <Icon size={30} name="home" color={this.state.currentScreen === "Home" ? "black" : "#d3d3d3"}></Icon>
                 </TouchableOpacity>
@@ -71,7 +73,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: 'white'
     },
-    header: {flex: 0, height: 80, justifyContent: 'flex-start', alignItems: 'center', marginVertical: 10, flexDirection: 'row', borderBottomColor: "black", borderBottomWidth: StyleSheet.hairlineWidth},
+    header: {flex: 0, height: 80, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row', borderBottomColor: "black", borderBottomWidth: StyleSheet.hairlineWidth},
     tabSelectContainer: {flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'},
     hairlineHor: {width: StyleSheet.hairlineWidth, backgroundColor: 'black'},
     mainHeaderText: {

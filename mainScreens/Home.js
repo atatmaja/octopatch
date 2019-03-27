@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {ActionCreators} from '../actions';
 import BleManager from 'react-native-ble-manager';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 class Home extends Component{
   constructor(props){
@@ -15,10 +16,26 @@ class Home extends Component{
   }
 
   render() {
+    const screenWidth = Dimensions.get('window').width;
     return (
-      <View style={styles.container}>
-        <Text>Home</Text>
-      </View>
+        <View>
+            <View style={[styles.container, {width: screenWidth}]}>
+                <MapView
+                    provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+                    style={{...StyleSheet.absoluteFillObject}}
+                    region={{
+                        latitude: 37.78825,
+                        longitude: -122.4324,
+                        latitudeDelta: 0.015,
+                        longitudeDelta: 0.0121,
+                    }}
+                >
+                </MapView>
+            </View>
+            <View style={styles.container}>
+                    <Text>Home</Text>
+            </View>
+        </View>
     );
   }
 }
@@ -28,7 +45,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
 });
 
 function mapStateToProps(state) {
