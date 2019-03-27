@@ -12,15 +12,38 @@ class Notifications extends Component{
     this.state = {
         todayExpanded: false,
         weekExpanded: false,
-        monthExpanded: false
+        monthExpanded: false,
+        todayNotifs: [
+            {text: "William Neil and Leslie are in close proximity, risk of conflict", time: "39 mins ago", isRead: false},
+            {text: "Leslie Neil and Daniel are in close proximity, risk of conflict", time: "1 hour ago", isRead: false},
+            {text: "Hoss and Hoss are in close proximity, risk of conflict", time: "2 hours ago", isRead: true}
+        ],
+        weekNotifs: [
+            {text: "William Neil and Leslie are in close proximity, risk of conflict", time: "Yesterday", isRead: true},
+            {text: "Leslie Neil and Daniel are in close proximity, risk of conflict", time: "3 days ago", isRead: true},
+        ],
+        monthNotifs: [
+            {text: "William Neil and Leslie are in close proximity, risk of conflict", time: "March 3rd", isRead: true},
+        ],
     }
   }
 
   componentDidMount(){
   }
 
+  renderNotif(notifText, time, isRead){
+      return(
+        <View style={styles.notifContainer}>
+            <View style={[styles.notifDot, {backgroundColor: isRead ? 'white' : 'blue'}]}></View>
+            <View style={{flexDirection: 'column'}}>
+                <Text style={{marginRight: 50}}>{notifText} </Text> 
+                <Text style={styles.timeText}>{time} </Text>
+            </View>
+        </View>
+      )
+  }
+
   render() {
-      console.log(this.state.todayExpanded)
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={() => this.setState({todayExpanded: !this.state.todayExpanded})} style={styles.timePeriodContainer}>
@@ -28,22 +51,34 @@ class Notifications extends Component{
             <Icon style={styles.collapseIcon} size={24} name={this.state.todayExpanded ? "chevron-up" : "chevron-down"}></Icon>
         </TouchableOpacity>
         {this.state.todayExpanded && (
-            <View style={styles.notifContainer}>
-                <View style={styles.notifDot}></View>
-                <View style={{flexDirection: 'column', marginRight: 50}}>
-                    <Text>William Neil and Leslie are in close proximity, risk of conflict </Text> 
-                    <Text style={styles.timeText}>39 mins ago</Text>
-                </View>
-            </View>
+            this.state.todayNotifs.map((notif) => {
+                return(
+                    this.renderNotif(notif.text, notif.time, notif.isRead)
+                )
+            })
         )}
         <TouchableOpacity onPress={() => this.setState({weekExpanded: !this.state.weekExpanded})} style={styles.timePeriodContainer}>
             <Text style={styles.timePeriodText}>This Week </Text>
             <Icon style={styles.collapseIcon} size={24} name={this.state.weekExpanded ? "chevron-up" : "chevron-down"}></Icon>
         </TouchableOpacity>
+        {this.state.weekExpanded && (
+            this.state.weekNotifs.map((notif) => {
+                return(
+                    this.renderNotif(notif.text, notif.time, notif.isRead)
+                )
+            })
+        )}
         <TouchableOpacity onPress={() => this.setState({monthExpanded: !this.state.monthExpanded})} style={styles.timePeriodContainer}>
             <Text style={styles.timePeriodText}>This Month </Text>
             <Icon style={styles.collapseIcon} size={24} name={this.state.monthExpanded ? "chevron-up" : "chevron-down"}></Icon>
         </TouchableOpacity>
+        {this.state.monthExpanded && (
+            this.state.monthNotifs.map((notif) => {
+                return(
+                    this.renderNotif(notif.text, notif.time, notif.isRead)
+                )
+            })
+        )}
       </View>
     );
   }
@@ -76,7 +111,6 @@ notifDot: {
     height: 10,
     width: 10,
     borderRadius: 10,
-    backgroundColor: 'blue',
     marginHorizontal: 20
 },
 timeText: {
