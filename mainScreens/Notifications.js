@@ -27,6 +27,15 @@ class Notifications extends Component{
             <Text style={styles.timePeriodText}>Today </Text>
             <Icon style={styles.collapseIcon} size={24} name={this.state.todayExpanded ? "chevron-up" : "chevron-down"}></Icon>
         </TouchableOpacity>
+        {this.state.todayExpanded && (
+            <View style={styles.notifContainer}>
+                <View style={styles.notifDot}></View>
+                <View style={{flexDirection: 'column', marginRight: 50}}>
+                    <Text>William Neil and Leslie are in close proximity, risk of conflict </Text> 
+                    <Text style={styles.timeText}>39 mins ago</Text>
+                </View>
+            </View>
+        )}
         <TouchableOpacity onPress={() => this.setState({weekExpanded: !this.state.weekExpanded})} style={styles.timePeriodContainer}>
             <Text style={styles.timePeriodText}>This Week </Text>
             <Icon style={styles.collapseIcon} size={24} name={this.state.weekExpanded ? "chevron-up" : "chevron-down"}></Icon>
@@ -54,10 +63,30 @@ const styles = StyleSheet.create({
       borderBottomColor: "black", 
       borderBottomWidth: (StyleSheet.hairlineWidth)*2
   },
+  notifContainer: {
+    width: Dimensions.get('window').width,
+    paddingVertical: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    borderBottomColor: "#a9a9a9", 
+    borderBottomWidth: StyleSheet.hairlineWidth,
+},
+notifDot: {
+    height: 10,
+    width: 10,
+    borderRadius: 10,
+    backgroundColor: 'blue',
+    marginHorizontal: 20
+},
+timeText: {
+    color: "#a9a9a9",
+    fontSize: 12 
+},
   timePeriodText: {
       fontWeight: 'bold',
       fontSize: 18,
-      marginLeft: 16
+      marginLeft: 16,
   },
   collapseIcon: {
       marginRight: 16
