@@ -27,21 +27,38 @@ class Information extends Component{
             <Icon style={styles.collapseIcon} size={24} name={this.state.roomExpanded ? "chevron-up" : "chevron-down"}></Icon>
         </TouchableOpacity>
         {this.state.roomExpanded && (
-            <Text>EXPANDED</Text>
+            <View style={styles.infoContainer}>
+              <View style={styles.bullet}></View>
+              <Text>{this.props.information.room} </Text> 
+            </View>
         )}
         <TouchableOpacity onPress={() => this.setState({triggersExpanded: !this.state.triggersExpanded})} style={styles.dropdownContainer}>
             <Text style={styles.categoryText}>Known Triggers     </Text>
             <Icon style={styles.collapseIcon} size={24} name={this.state.triggersExpanded ? "chevron-up" : "chevron-down"}></Icon>
         </TouchableOpacity>
         {this.state.triggersExpanded && (
-            <Text>EXPANDED</Text>
+            this.props.information.knownTriggers.map((trigger) => {
+              return(
+                <View style={styles.infoContainer}>
+                  <View style={styles.bullet}></View>
+                  <Text>{trigger} </Text> 
+                </View>
+              )
+            })
         )}
         <TouchableOpacity onPress={() => this.setState({soothingExpanded: !this.state.soothingExpanded})} style={styles.dropdownContainer}>
             <Text style={styles.categoryText}>Soothing Techniques      </Text>
             <Icon style={styles.collapseIcon} size={24} name={this.state.soothingExpanded ? "chevron-up" : "chevron-down"}></Icon>
         </TouchableOpacity>
         {this.state.soothingExpanded && (
-            <Text>EXPANDED</Text>
+            this.props.information.soothingMethods.map((method) => {
+              return(
+                <View style={styles.infoContainer}>
+                  <View style={styles.bullet}></View>
+                  <Text>{method} </Text> 
+                </View>
+              )
+            })
         )}
       </View>
     );
@@ -69,6 +86,20 @@ const styles = StyleSheet.create({
     height: 60,
     borderBottomColor: "black", 
     borderBottomWidth: (StyleSheet.hairlineWidth)*2
+},
+bullet: {
+  height: 10,
+  width: 10,
+  borderRadius: 10,
+  marginHorizontal: 20,
+  backgroundColor: '#a9a9a9'
+},
+infoContainer: {
+  width: Dimensions.get('window').width,
+  paddingVertical: 10,
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
 },
 });
 

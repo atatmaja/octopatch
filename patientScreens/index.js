@@ -29,22 +29,23 @@ class PatientScreen extends Component{
   componentDidMount(){
   }
 
-  getActiveComponent(){
+  getActiveComponent(patient){
     switch(this.state.currentScreen){
         case "Biometrics":
           return <Biometrics/>
         case "Information":
-          return <Information/>
+          return <Information information={patient.information}/>
         case "Notifications":
           return <Notifications/>
     }
 }
 
   render() {
+    const patient = this.props.navigation.getParam('patient', {});
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.mainHeaderText}>LESIE JOHNSONBERG</Text>
+                <Text style={styles.mainHeaderText}>{patient.name}</Text>
             </View>
             <Text style={styles.subtitle}>Patient Location</Text>
             <View style={{flex: 1}}>
@@ -59,9 +60,9 @@ class PatientScreen extends Component{
                     }}
                 >
                     <Marker
-                        coordinate={{latitude: 43.472923, longitude: -80.540087}}
-                        title={"Leslie Johnsonberg"}
-                        pinColor={'red'}
+                        coordinate={patient.location}
+                        title={patient.name}
+                        pinColor={patient.isStressed ? 'red' : 'green'}
                     />
                 </MapView>
             </View>
@@ -79,7 +80,7 @@ class PatientScreen extends Component{
                 </TouchableOpacity>
             </View>
             <View style={{flex:1}}>
-                {this.getActiveComponent()}
+                {this.getActiveComponent(patient)}
             </View>
         </View>
     );

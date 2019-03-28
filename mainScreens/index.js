@@ -31,7 +31,7 @@ class MainScreen extends Component{
   getActiveComponent(){
       switch(this.state.currentScreen){
           case "Home":
-            return <Home/>
+            return <Home navigation={this.props.navigation}/>
           case "Notifications":
             return <Notifications/>
           case "Settings":

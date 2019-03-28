@@ -13,17 +13,29 @@ import BleManager from 'react-native-ble-manager';
 import {ActionCreators} from './actions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import MainScreen from './mainScreens'
-import PatientScreen from './patientScreens'
+import MainScreen from './mainScreens';
+import PatientScreen from './patientScreens';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 const BleEmitter = new NativeEventEmitter(NativeModules.BleManager);
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+const RootStack = createStackNavigator(
+  {
+    MainScreen: {
+      screen: MainScreen
+    },
+    PatientScreen: {
+      screen: PatientScreen
+    }
+  },
+  {
+    initialRouteName: 'MainScreen',
+    headerMode: 'none'
+  }
+);
+
+const AppContainer = createAppContainer(RootStack);
+
 class Root extends Component {
   constructor(props){
     super(props);
@@ -118,7 +130,11 @@ class Root extends Component {
 
   render() {
     return (
-      <PatientScreen></PatientScreen>
+      <AppContainer
+        ref={nav => {
+          this.navigator = nav;
+        }}
+      />
     );
   }
 }
