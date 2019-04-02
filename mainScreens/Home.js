@@ -11,7 +11,7 @@ class Home extends Component{
     super(props);
     this.state = {
         patients: [
-            {name: "William Neil", id: 1, location: {latitude: 43.4729, longitude: -80.5400}, isStressed: true, information: {knownTriggers: ["something", "something else"], room: "252 A", soothingMethods: ["something", "something else"]}},
+            this.props.demoPatient,
             {name: "Leslie Johnsonberg", id: 2, location: {latitude: 43.4728, longitude: -80.5400}, isStressed: true, information: {knownTriggers: ["something", "something else"], room: "253 A", soothingMethods: ["something", "something else"]}},
             {name: "Brock Thorn", id: 3, location: {latitude: 43.4729, longitude: -80.5401}, isStressed: false, information: {knownTriggers: ["something", "something else"], room: "252 B", soothingMethods: ["something", "something else"]}},
             {name: "Jasmine Kepernick", id: 4, location: {latitude: 43.4727, longitude: -80.54005}, isStressed: false, information: {knownTriggers: ["something", "something else"], room: "250 A", soothingMethods: ["something", "something else"]}},
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    data: state
+    demoPatient: state.patients
   };
 }
 

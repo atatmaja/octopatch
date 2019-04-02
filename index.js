@@ -29,8 +29,17 @@ function configureStore(initialState){
 
 const initState = {
     accountInfo: {},
-    //dictionary of patient objects, key = patient id, value = patient object associated with that id
-    patients: {},
+    //originally supposed to be dictionary of patient objects, key = patient id, value = patient object associated with that id
+    //now it's just the patient object for our demo patient
+    patients: { 
+        name: "William Neil", 
+        id: 1, 
+        location: {latitude: 43.4729, longitude: -80.5400}, 
+        isStressed: true, 
+        information: {knownTriggers: ["something", "something else"], 
+        room: "252 A", 
+        soothingMethods: ["something", "something else"]} 
+    },
     //list of notification objects sorted in chronological order
     notifications: []
 }
