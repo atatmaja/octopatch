@@ -105,7 +105,32 @@ class Root extends Component {
   }
 
   onConnectPeripheral(){
-    //todo
+    //notifies state that device has been connected
+    console.log(this.props);
+    console.log("connected to device with address", this.props.accountInfo.deviceAddr);
+
+    BleManager.retrieveServices(this.props.accountInfo.deviceAddr).then((peripheralInfo) => {
+      // Success code
+      console.log('Peripheral info:', peripheralInfo);
+
+      const CHAR_UUID = "713d0002-503e-4c75-ba94-3148f18d941e";
+      const SERVICE_UUID = "713d0000-503e-4c75-ba94-3148f18d941e";
+      //save characteristic/service UUIDs in the state
+      this.setState({CHAR_UUID, SERVICE_UUID});
+
+      //init notifier to listen for sent packets with following args
+      //peripheralId
+      //serviceUUID
+      //characteristicUUID
+      
+      BleManager.startNotification(this.props.accountInfo.deviceAddr, SERVICE_UUID, CHAR_UUID)
+        .then(() => {
+          console.log('Notification started');
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });  
   }
 
   onDisconnectPeripheral(){
@@ -114,12 +139,12 @@ class Root extends Component {
 
   onDiscoverPeripheral(peripheral){
     if(peripheral.name === "Octopatch"){
-      console.log('retrieved peripheral');
+        console.log('retrieved peripheral');
+        this.props.saveBLEAddr(peripheral.id);
         BleManager.stopScan()
           .then(() => {
             BleManager.connect(peripheral.id)
                 .then(() => {
-                  this.props.saveBLEAddr(peripheral.id);
                   console.log('Connected');
                 })
                 .catch((error) => {
