@@ -104,16 +104,29 @@ class Root extends Component {
     //todo
   }
 
-  onDiscoverPeripheral(){
-    //todo
-  }
-
   onConnectPeripheral(){
     //todo
   }
 
   onDisconnectPeripheral(){
-    //todo
+
+  }
+
+  onDiscoverPeripheral(peripheral){
+    if(peripheral.name === "Octopatch"){
+      console.log('retrieved peripheral');
+        BleManager.stopScan()
+          .then(() => {
+            BleManager.connect(peripheral.id)
+                .then(() => {
+                  this.props.saveBLEAddr(peripheral.id);
+                  console.log('Connected');
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+          });
+    }
   }
 
   onReceivePacket(){
@@ -121,10 +134,6 @@ class Root extends Component {
   }
 
   componentDidMount(){
-    //call test action
-    console.log(this.props);
-    this.props.test();
-
     this.checkBLEPermissions();
   }
 

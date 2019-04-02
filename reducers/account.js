@@ -7,4 +7,10 @@ export const accountInfo = createReducer({}, {
         newState.log = action.msg;
         return newState;
     },
+    [types.SAVE_BLE_ADDR](state, action){
+        const newState = Object.assign({}, state);
+        console.log(action.deviceAddr);
+        newState.deviceAddr = action.deviceAddr;
+        return newState;
+    }
 });

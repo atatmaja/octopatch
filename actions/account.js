@@ -14,3 +14,16 @@ export function testDispatch(testObj){
         testObj
     }
 }
+
+export function saveBLEAddr(deviceAddr){
+    return(dispatch, getState) => {
+        dispatch(storeBLEAddr(deviceAddr));
+    }
+}
+
+export function storeBLEAddr(deviceAddr){
+    return{
+        type: types.SAVE_BLE_ADDR,
+        deviceAddr
+    }
+}
