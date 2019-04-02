@@ -100,14 +100,24 @@ class Root extends Component {
     });
   }
 
+  onDisconnectPeripheral(){
+    Alert.alert(
+      'Octopatch Disconnected',
+      ''
+    );
+  }
+
   onStopScan(){
-    //todo
+    console.log('stopped scanning');
   }
 
   onConnectPeripheral(){
-    //notifies state that device has been connected
-    console.log(this.props);
     console.log("connected to device with address", this.props.accountInfo.deviceAddr);
+
+    Alert.alert(
+      'Connected to Octopatch',
+      `Device address:  ${this.props.accountInfo.deviceAddr}`,
+    );
 
     BleManager.retrieveServices(this.props.accountInfo.deviceAddr).then((peripheralInfo) => {
       // Success code
@@ -133,10 +143,6 @@ class Root extends Component {
     });  
   }
 
-  onDisconnectPeripheral(){
-
-  }
-
   onDiscoverPeripheral(peripheral){
     if(peripheral.name === "Octopatch"){
         console.log('retrieved peripheral');
@@ -154,8 +160,18 @@ class Root extends Component {
     }
   }
 
-  onReceivePacket(){
-    //todo
+  onReceivePacket({value, peripheral, characteristic, service}){
+    console.log('received packet', value);
+    /*
+    //steps represented as 2 bytes
+    const currentSteps = (value[1] << 8) | value[2]
+    if(currentHR > 0 && currentSteps > 0){
+      const currentTime = moment().unix();
+      this.props.postCurrentHR(currentHR, currentTime);
+      this.props.postCurrentSteps(currentSteps, currentTime);
+      console.log(currentHR, currentSteps);
+    }
+    */
   }
 
   componentDidMount(){

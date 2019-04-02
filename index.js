@@ -35,7 +35,7 @@ const initState = {
         name: "William Neil", 
         id: 1, 
         location: {latitude: 43.4729, longitude: -80.5400}, 
-        isStressed: true, 
+        isStressed: false, 
         information: {knownTriggers: ["something", "something else"], 
         room: "252 A", 
         soothingMethods: ["something", "something else"]} 

@@ -17,6 +17,8 @@ class Biometrics extends Component{
   }
 
   render() {
+    //red triangle icon just for future reference
+    //<Icon style={{marginHorizontal: 20}} size={55} name="caret-up" color="red"></Icon>
     return (
       <View style={styles.container}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -26,8 +28,8 @@ class Biometrics extends Component{
             </View>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <FontAwesome5 style={{marginHorizontal: 20}} size={40} name="wind" color="black"></FontAwesome5>
-              <Text style={styles.biometricText}>27 breaths/min </Text>
-              <Icon style={{marginHorizontal: 20}} size={55} name="caret-up" color="red"></Icon>
+              <Text style={styles.biometricText}>20 breaths/min </Text>
+              <Icon style={{marginHorizontal: 20}} size={40} name="circle" color="green"></Icon>
             </View>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Icon style={{marginLeft: 35, marginRight: 20}} size={40} name="tint" color="black"></Icon>

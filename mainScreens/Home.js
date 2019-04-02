@@ -12,7 +12,7 @@ class Home extends Component{
     this.state = {
         patients: [
             this.props.demoPatient,
-            {name: "Leslie Johnsonberg", id: 2, location: {latitude: 43.4728, longitude: -80.5400}, isStressed: true, information: {knownTriggers: ["something", "something else"], room: "253 A", soothingMethods: ["something", "something else"]}},
+            {name: "Leslie Johnsonberg", id: 2, location: {latitude: 43.4728, longitude: -80.5400}, isStressed: false, information: {knownTriggers: ["something", "something else"], room: "253 A", soothingMethods: ["something", "something else"]}},
             {name: "Brock Thorn", id: 3, location: {latitude: 43.4729, longitude: -80.5401}, isStressed: false, information: {knownTriggers: ["something", "something else"], room: "252 B", soothingMethods: ["something", "something else"]}},
             {name: "Jasmine Kepernick", id: 4, location: {latitude: 43.4727, longitude: -80.54005}, isStressed: false, information: {knownTriggers: ["something", "something else"], room: "250 A", soothingMethods: ["something", "something else"]}},
             {name: "Casper Seretoni", id: 5, location: {latitude: 43.4729, longitude: -80.5399}, isStressed: false, information: {knownTriggers: ["something", "something else"], room: "251 C", soothingMethods: ["something", "something else"]}},
@@ -26,7 +26,7 @@ class Home extends Component{
   renderPatientStatus(){
     return this.state.patients.map((patient) => {
         return (
-            <TouchableOpacity onPress={() => {this.props.navigation.navigate('PatientScreen', {patient})}} style={{flexDirection: 'row', marginHorizontal: 8, borderWidth: StyleSheet.hairlineWidth, borderColor: "#d3d3d3"}}>
+            <TouchableOpacity key={patient.name} onPress={() => {this.props.navigation.navigate('PatientScreen', {patient})}} style={{flexDirection: 'row', marginHorizontal: 8, borderWidth: StyleSheet.hairlineWidth, borderColor: "#d3d3d3"}}>
                 <View style={{flex: 0, width: 10, backgroundColor: 'blue', marginRight: 15}}></View>
                 <View style={{paddingVertical: 8, flex: 1, flexDirection: 'row'}}>
                     <View style={{flex: 1}}>
@@ -63,6 +63,7 @@ class Home extends Component{
                                 coordinate={patient.location}
                                 title={patient.name}
                                 pinColor={patient.isStressed ? 'red' : 'green'}
+                                key={patient.name}
                             />
                         )
                     })}
