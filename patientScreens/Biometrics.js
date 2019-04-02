@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {ActionCreators} from '../actions';
 import BleManager from 'react-native-ble-manager';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 class Biometrics extends Component{
   constructor(props){
@@ -20,11 +21,11 @@ class Biometrics extends Component{
       <View style={styles.container}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Icon style={{marginHorizontal: 20}} size={40} name="heart" color="black"></Icon>
-              <Text style={styles.biometricText}>0 BPM </Text>
+              <Text style={styles.biometricText}>70 BPM </Text>
               <Icon style={{marginHorizontal: 20}} size={40} name="circle" color="green"></Icon>
             </View>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Icon style={{marginHorizontal: 20}} size={40} name="bell" color="black"></Icon>
+              <FontAwesome5 style={{marginHorizontal: 20}} size={40} name="wind" color="black"></FontAwesome5>
               <Text style={styles.biometricText}>27 breaths/min </Text>
               <Icon style={{marginHorizontal: 20}} size={55} name="caret-up" color="red"></Icon>
             </View>
