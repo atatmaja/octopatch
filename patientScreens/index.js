@@ -32,7 +32,7 @@ class PatientScreen extends Component{
   getActiveComponent(patient){
     switch(this.state.currentScreen){
         case "Biometrics":
-          return <Biometrics/>
+          return <Biometrics name={patient.name}/>
         case "Information":
           return <Information information={patient.information}/>
         case "Notifications":
@@ -63,6 +63,7 @@ class PatientScreen extends Component{
                         coordinate={patient.location}
                         title={patient.name}
                         pinColor={patient.isStressed ? 'red' : 'green'}
+                        key={`${patient.name}${patient.isStressed ? 'red' : 'green'}`}
                     />
                 </MapView>
             </View>

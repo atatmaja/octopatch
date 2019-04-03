@@ -9,22 +9,13 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 class Home extends Component{
   constructor(props){
     super(props);
-    this.state = {
-        patients: [
-            this.props.demoPatient,
-            {name: "Leslie Johnsonberg", id: 2, location: {latitude: 43.4728, longitude: -80.5400}, isStressed: false, information: {knownTriggers: ["something", "something else"], room: "253 A", soothingMethods: ["something", "something else"]}},
-            {name: "Brock Thorn", id: 3, location: {latitude: 43.4729, longitude: -80.5401}, isStressed: false, information: {knownTriggers: ["something", "something else"], room: "252 B", soothingMethods: ["something", "something else"]}},
-            {name: "Jasmine Kepernick", id: 4, location: {latitude: 43.4727, longitude: -80.54005}, isStressed: false, information: {knownTriggers: ["something", "something else"], room: "250 A", soothingMethods: ["something", "something else"]}},
-            {name: "Casper Seretoni", id: 5, location: {latitude: 43.4729, longitude: -80.5399}, isStressed: false, information: {knownTriggers: ["something", "something else"], room: "251 C", soothingMethods: ["something", "something else"]}},
-        ]
-    }
   }
 
   componentDidMount(){
   }
 
-  renderPatientStatus(){
-    return this.state.patients.map((patient) => {
+  renderPatientStatus(patients){
+    return patients.map((patient) => {
         return (
             <TouchableOpacity key={patient.name} onPress={() => {this.props.navigation.navigate('PatientScreen', {patient})}} style={{flexDirection: 'row', marginHorizontal: 8, borderWidth: StyleSheet.hairlineWidth, borderColor: "#d3d3d3"}}>
                 <View style={{flex: 0, width: 10, backgroundColor: 'blue', marginRight: 15}}></View>
@@ -42,6 +33,14 @@ class Home extends Component{
   }
 
   render() {
+    const patients = [
+        {name: "Leslie Johnsonberg", id: 2, location: {latitude: 43.4728, longitude: -80.5400}, isStressed: false, information: {knownTriggers: ["something", "something else"], room: "253 A", soothingMethods: ["something", "something else"]}},
+        {name: "Brock Thorn", id: 3, location: {latitude: 43.4729, longitude: -80.5401}, isStressed: false, information: {knownTriggers: ["something", "something else"], room: "252 B", soothingMethods: ["something", "something else"]}},
+        {name: "Jasmine Kepernick", id: 4, location: {latitude: 43.4727, longitude: -80.54005}, isStressed: false, information: {knownTriggers: ["something", "something else"], room: "250 A", soothingMethods: ["something", "something else"]}},
+        {name: "Casper Seretoni", id: 5, location: {latitude: 43.4729, longitude: -80.5399}, isStressed: false, information: {knownTriggers: ["something", "something else"], room: "251 C", soothingMethods: ["something", "something else"]}},
+    ];
+    patients.unshift(this.props.demoPatient);
+    console.log('rerender home');
     const screenWidth = Dimensions.get('window').width;
     return (
         <View>
@@ -57,13 +56,15 @@ class Home extends Component{
                         longitudeDelta: 0.001,
                     }}
                 >
-                    {this.state.patients.map((patient) => {
+                    {patients.map((patient) => {
+                        //marker rerenders based on key so we need to update key when changing patient is stressed
+                        const key = `${patient.name}${patient.isStressed ? 'red' : 'green'}`
                         return(
                             <Marker
                                 coordinate={patient.location}
                                 title={patient.name}
                                 pinColor={patient.isStressed ? 'red' : 'green'}
-                                key={patient.name}
+                                key={key}
                             />
                         )
                     })}
@@ -71,7 +72,7 @@ class Home extends Component{
             </View>
             <Text style={styles.subtitle}>Patient Status</Text>
             <View style={styles.containerBottom}>
-                {this.renderPatientStatus()}
+                {this.renderPatientStatus(patients)}
             </View>
         </View>
     );

@@ -16,6 +16,7 @@ import {bindActionCreators} from 'redux';
 import MainScreen from './mainScreens';
 import PatientScreen from './patientScreens';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import PushNotification from 'react-native-push-notification';
 
 const BleEmitter = new NativeEventEmitter(NativeModules.BleManager);
 
@@ -45,6 +46,7 @@ class Root extends Component {
     this.onDisconnectPeripheral = this.onDisconnectPeripheral.bind(this);
     this.onReceivePacket = this.onReceivePacket.bind(this);
     this.state = {};
+    this.sendNotif = this.sendNotif.bind(this);
   }
 
   checkBLEPermissions(){
@@ -162,21 +164,43 @@ class Root extends Component {
 
   onReceivePacket({value, peripheral, characteristic, service}){
     console.log('received packet', value);
-    /*
-    //steps represented as 2 bytes
-    const currentSteps = (value[1] << 8) | value[2]
-    if(currentHR > 0 && currentSteps > 0){
-      const currentTime = moment().unix();
-      this.props.postCurrentHR(currentHR, currentTime);
-      this.props.postCurrentSteps(currentSteps, currentTime);
-      console.log(currentHR, currentSteps);
+    //need to get hr properly from packet
+    const hr = value[0];
+    //sketchy ass threshold
+    const threshold = 110;
+
+    const isStressed = hr > threshold;
+
+    if(isStressed){
+      this.sendNotif();
+      const notif =  {text: "Daniel Javaheri-Zadeh has an abnormally high HR, stress risk!", time: "One second ago", isRead: true}
+      //need action to push this to notifications state object
+      this.props.updateNotif(notif);
     }
-    */
+
+    //don't push 0 values
+    if(hr > 0){
+      this.props.updateHR(hr, isStressed);
+    }
   }
 
   componentDidMount(){
     this.checkBLEPermissions();
+    PushNotification.configure({ 		
+        onNotification: function(notification) {
+          console.log('NOTIFICATION', notification);
+        },
+        popInitialNotification: true,
+    });
   }
+
+  sendNotif() { 
+    PushNotification.localNotification({
+        /* iOS and Android properties */
+        title: "Daniel Javaheri-Zadeh", // (optional)
+        message: "Abnormally high HR, stress risk!", // (required)
+    });
+   }
 
   render() {
     return (

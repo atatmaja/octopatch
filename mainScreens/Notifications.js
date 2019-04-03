@@ -9,22 +9,17 @@ import BleManager from 'react-native-ble-manager';
 class Notifications extends Component{
   constructor(props){
     super(props);
+    const todayNotifs = this.props.notifications.concat([{text: "Leslie Neil and Daniel Javaheri-Zadeh are in close proximity, risk of conflict", time: "1 hour ago", isRead: false}])
     this.state = {
         todayExpanded: false,
         weekExpanded: false,
         monthExpanded: false,
-        todayNotifs: [
-            {text: "William Neil and Leslie are in close proximity, risk of conflict", time: "39 mins ago", isRead: false},
-            {text: "Leslie Neil and Daniel are in close proximity, risk of conflict", time: "1 hour ago", isRead: false},
-            {text: "Hoss and Hoss are in close proximity, risk of conflict", time: "2 hours ago", isRead: true}
-        ],
+        todayNotifs,
         weekNotifs: [
-            {text: "William Neil and Leslie are in close proximity, risk of conflict", time: "Yesterday", isRead: true},
-            {text: "Leslie Neil and Daniel are in close proximity, risk of conflict", time: "3 days ago", isRead: true},
+            {text: "Daniel Javaheri-Zadeh and Leslie are in close proximity, risk of conflict", time: "Yesterday", isRead: true},
+            {text: "Leslie Neil has an abnormally high HR, stress risk", time: "3 days ago", isRead: true},
         ],
-        monthNotifs: [
-            {text: "William Neil and Leslie are in close proximity, risk of conflict", time: "March 3rd", isRead: true},
-        ],
+        monthNotifs: []
     }
   }
 
@@ -129,7 +124,7 @@ timeText: {
 
 function mapStateToProps(state) {
   return {
-    data: state
+    notifications: state.notifications
   };
 }
 

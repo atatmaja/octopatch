@@ -17,12 +17,25 @@ class Settings extends Component{
     }
   }
 
+  startScan(){
+    BleManager.scan([], 30).then(() => {
+      //Promise runs once scan is successfully started
+      console.log('scanning');
+    });
+  }
+
   componentDidMount(){
   }
 
   render() {
     return (
         <View style={styles.container}>
+            <TouchableOpacity onPress={() => this.startScan()}  style={[styles.dropdownContainer, {borderTopColor: "black", borderTopWidth: (StyleSheet.hairlineWidth)*2}]}>
+                <Text style={[styles.settingsGroupText]}>Rescan BLE </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.notif()}  style={[styles.dropdownContainer, {borderTopColor: "black", borderTopWidth: (StyleSheet.hairlineWidth)*2}]}>
+                <Text style={[styles.settingsGroupText]}>Test Push Notifs </Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => this.setState({notificationsExpanded: !this.state.notificationsExpanded})} style={[styles.dropdownContainer, {borderTopColor: "black", borderTopWidth: (StyleSheet.hairlineWidth)*2}]}>
                 <Text style={styles.settingsGroupText}>Notifications     </Text>
                 <Icon style={styles.collapseIcon} size={24} name={this.state.notificationsExpanded ? "chevron-up" : "chevron-down"}></Icon>
