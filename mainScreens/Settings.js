@@ -15,6 +15,7 @@ class Settings extends Component{
         locationExpanded: false,
         patientExpanded: false
     }
+    this.notif = this.notif.bind(this);
   }
 
   componentDidMount(){
@@ -41,6 +42,10 @@ class Settings extends Component{
             </TouchableOpacity>
             <TouchableOpacity style={[styles.dropdownContainer, {marginTop: 60, borderTopColor: "black", borderTopWidth: (StyleSheet.hairlineWidth)*2}]}>
                 <Text style={[styles.settingsGroupText, {color: 'red'}]}>Logout </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => this.notif()}  style={[styles.dropdownContainer, {marginTop: 60, borderTopColor: "black", borderTopWidth: (StyleSheet.hairlineWidth)*2}]}>
+                <Text style={[styles.settingsGroupText, {color: 'red'}]}>Test Push Notifs </Text>
             </TouchableOpacity>
         </View>
     );

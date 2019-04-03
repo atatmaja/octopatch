@@ -16,6 +16,7 @@ import {bindActionCreators} from 'redux';
 import MainScreen from './mainScreens';
 import PatientScreen from './patientScreens';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import PushNotification from 'react-native-push-notification';
 
 const BleEmitter = new NativeEventEmitter(NativeModules.BleManager);
 
@@ -45,6 +46,7 @@ class Root extends Component {
     this.onDisconnectPeripheral = this.onDisconnectPeripheral.bind(this);
     this.onReceivePacket = this.onReceivePacket.bind(this);
     this.state = {};
+    this.sendNotif = this.sendNotif.bind(this);
   }
 
   checkBLEPermissions(){
@@ -176,7 +178,22 @@ class Root extends Component {
 
   componentDidMount(){
     this.checkBLEPermissions();
+    PushNotification.configure({ 		
+        onNotification: function(notification) {
+          console.log('NOTIFICATION', notification);
+        },
+        popInitialNotification: true,
+    });
+    this.sendNotif();
   }
+
+  sendNotif() { 
+    PushNotification.localNotification({
+        /* iOS and Android properties */
+        title: "My Notification Title", // (optional)
+        message: "My Notification Message", // (required)
+    });
+   }
 
   render() {
     return (
