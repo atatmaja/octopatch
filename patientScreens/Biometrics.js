@@ -17,14 +17,15 @@ class Biometrics extends Component{
   }
 
   render() {
+    console.log(this.props);
     //red triangle icon just for future reference
     //<Icon style={{marginHorizontal: 20}} size={55} name="caret-up" color="red"></Icon>
     return (
       <View style={styles.container}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Icon style={{marginHorizontal: 20}} size={40} name="heart" color="black"></Icon>
-              <Text style={styles.biometricText}>70 BPM </Text>
-              <Icon style={{marginHorizontal: 20}} size={40} name="circle" color="green"></Icon>
+              <Text style={styles.biometricText}>{(this.props.name === "Daniel Javaheri-Zadeh" && this.props.hr) ? `${this.props.hr} BPM` : "70 BPM"} </Text>
+              <Icon style={{marginHorizontal: 20}} size={this.props.hr > 100 ? 55 : 40} name={this.props.hr > 110 ? "caret-up" : "circle"} color={this.props.hr > 110 ? "red" : "green"}></Icon>
             </View>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <FontAwesome5 style={{marginHorizontal: 20}} size={40} name="wind" color="black"></FontAwesome5>
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    data: state
+    hr: state.patients.hr
   };
 }
 

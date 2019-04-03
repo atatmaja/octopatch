@@ -15,7 +15,13 @@ class Settings extends Component{
         locationExpanded: false,
         patientExpanded: false
     }
-    this.notif = this.notif.bind(this);
+  }
+
+  startScan(){
+    BleManager.scan([], 30).then(() => {
+      //Promise runs once scan is successfully started
+      console.log('scanning');
+    });
   }
 
   componentDidMount(){
@@ -24,6 +30,12 @@ class Settings extends Component{
   render() {
     return (
         <View style={styles.container}>
+            <TouchableOpacity onPress={() => this.startScan()}  style={[styles.dropdownContainer, {borderTopColor: "black", borderTopWidth: (StyleSheet.hairlineWidth)*2}]}>
+                <Text style={[styles.settingsGroupText]}>Rescan BLE </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.notif()}  style={[styles.dropdownContainer, {borderTopColor: "black", borderTopWidth: (StyleSheet.hairlineWidth)*2}]}>
+                <Text style={[styles.settingsGroupText]}>Test Push Notifs </Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => this.setState({notificationsExpanded: !this.state.notificationsExpanded})} style={[styles.dropdownContainer, {borderTopColor: "black", borderTopWidth: (StyleSheet.hairlineWidth)*2}]}>
                 <Text style={styles.settingsGroupText}>Notifications     </Text>
                 <Icon style={styles.collapseIcon} size={24} name={this.state.notificationsExpanded ? "chevron-up" : "chevron-down"}></Icon>
@@ -42,10 +54,6 @@ class Settings extends Component{
             </TouchableOpacity>
             <TouchableOpacity style={[styles.dropdownContainer, {marginTop: 60, borderTopColor: "black", borderTopWidth: (StyleSheet.hairlineWidth)*2}]}>
                 <Text style={[styles.settingsGroupText, {color: 'red'}]}>Logout </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => this.notif()}  style={[styles.dropdownContainer, {marginTop: 60, borderTopColor: "black", borderTopWidth: (StyleSheet.hairlineWidth)*2}]}>
-                <Text style={[styles.settingsGroupText, {color: 'red'}]}>Test Push Notifs </Text>
             </TouchableOpacity>
         </View>
     );

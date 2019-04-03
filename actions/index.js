@@ -1,5 +1,6 @@
 import * as accountActions from './account'
 import * as patientActions from './patient'
+import * as notificationActions from './notifications'
 
 //below support for combining multiple actions together is defined
 //actions will be called to calculate how state should be changed within the app
@@ -7,5 +8,6 @@ import * as patientActions from './patient'
 
 export const ActionCreators = Object.assign({}, 
     accountActions,
-    patientActions
+    patientActions,
+    notificationActions
 )

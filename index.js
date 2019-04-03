@@ -32,7 +32,7 @@ const initState = {
     //originally supposed to be dictionary of patient objects, key = patient id, value = patient object associated with that id
     //now it's just the patient object for our demo patient
     patients: { 
-        name: "William Neil", 
+        name: "Daniel Javaheri-Zadeh", 
         id: 1, 
         location: {latitude: 43.4729, longitude: -80.5400}, 
         isStressed: false, 

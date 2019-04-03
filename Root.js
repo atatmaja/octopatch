@@ -164,16 +164,24 @@ class Root extends Component {
 
   onReceivePacket({value, peripheral, characteristic, service}){
     console.log('received packet', value);
-    /*
-    //steps represented as 2 bytes
-    const currentSteps = (value[1] << 8) | value[2]
-    if(currentHR > 0 && currentSteps > 0){
-      const currentTime = moment().unix();
-      this.props.postCurrentHR(currentHR, currentTime);
-      this.props.postCurrentSteps(currentSteps, currentTime);
-      console.log(currentHR, currentSteps);
+    //need to get hr properly from packet
+    const hr = value[0];
+    //sketchy ass threshold
+    const threshold = 110;
+
+    const isStressed = hr > threshold;
+
+    if(isStressed){
+      this.sendNotif();
+      const notif =  {text: "Daniel Javaheri-Zadeh has an abnormally high HR, stress risk!", time: "One second ago", isRead: true}
+      //need action to push this to notifications state object
+      this.props.updateNotif(notif);
     }
-    */
+
+    //don't push 0 values
+    if(hr > 0){
+      this.props.updateHR(hr, isStressed);
+    }
   }
 
   componentDidMount(){
@@ -184,14 +192,13 @@ class Root extends Component {
         },
         popInitialNotification: true,
     });
-    this.sendNotif();
   }
 
   sendNotif() { 
     PushNotification.localNotification({
         /* iOS and Android properties */
-        title: "My Notification Title", // (optional)
-        message: "My Notification Message", // (required)
+        title: "Daniel Javaheri-Zadeh", // (optional)
+        message: "Abnormally high HR, stress risk!", // (required)
     });
    }
 
